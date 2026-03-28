@@ -2,9 +2,11 @@ package com.tol.consulta.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
-
 import java.time.LocalDate;
 
+/**
+ * Entidad que representa a un contribuyente en la base de datos.
+ */
 @Data
 @Entity
 @Table(schema = "TOL", name = "CONTRIBUYENTE")
@@ -35,6 +37,5 @@ public class ContribuyenteEntity {
 
     @Column(name = "FECHA_REGISTRO")
     private LocalDate fechaRegistro;
-
 
 }

@@ -2,10 +2,11 @@ package com.tol.consulta.model.dto;
 
 import lombok.Builder;
 import lombok.Data;
-
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+/**
+ * DTO de la respuesta de excepcion
+ */
 @Builder
 @Data
 public class RespuestaExceptionDto {

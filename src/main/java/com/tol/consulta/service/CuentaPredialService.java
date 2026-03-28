@@ -10,10 +10,12 @@ import jakarta.persistence.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+/**
+ * Servicio encargado de gestionar la lógica de negocio de las cuentas prediales de un contribuyente.
+ */
 @Slf4j
 @RequiredArgsConstructor
 @Service
@@ -54,7 +56,6 @@ public class CuentaPredialService implements ICuentaPredialService {
 
         log.info("Consulta realizada exitosamete para el catastro: {} por parte del usuario: {}", resp.codCatastral(), resp.numDocumento());
 
-        // ASIGNACIÓN DIRECTA AL RECORD
         return new ConsultaResponse(
                 (String) query.getOutputParameterValue("P_NOMBRE"),
                 (BigDecimal) query.getOutputParameterValue("P_VALOR_DEUDA"),
@@ -62,6 +63,5 @@ public class CuentaPredialService implements ICuentaPredialService {
                 resp,
                 LocalDateTime.now()
         );
-
     }
 }

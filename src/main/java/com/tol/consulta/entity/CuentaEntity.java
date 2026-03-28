@@ -3,10 +3,12 @@ package com.tol.consulta.entity;
 import com.tol.consulta.model.enums.EstadoEnum;
 import jakarta.persistence.*;
 import lombok.Data;
-
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+/**
+ * Entidad que representa la cuenta predial asociada a un contribuyente.
+ */
 @Data
 @Entity
 @Table(schema = "TOL", name = "CUENTA")
