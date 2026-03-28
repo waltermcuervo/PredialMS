@@ -3,17 +3,18 @@ package com.tol.consulta.service;
 import com.tol.consulta.exception.ElementNotFoundException;
 import com.tol.consulta.model.enums.EstadoEnum;
 import com.tol.consulta.model.records.ConsultaRequest;
-import com.tol.consulta.model.dto.ConsultaResponseDto;
 import com.tol.consulta.model.records.ConsultaResponse;
 import com.tol.consulta.repository.ICuentaRepository;
 import com.tol.consulta.service.implementation.ICuentaPredialService;
 import jakarta.persistence.*;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+@Slf4j
 @RequiredArgsConstructor
 @Service
 public class CuentaPredialService implements ICuentaPredialService {
@@ -25,6 +26,7 @@ public class CuentaPredialService implements ICuentaPredialService {
 
     @Override
     public ConsultaResponse consultarEstadoPredial(ConsultaRequest resp) {
+        log.info("inicio consulta predial: {} ", resp.codCatastral());
         StoredProcedureQuery query = null;
         try {
             query = entityManager.createStoredProcedureQuery("TOL.SP_CONSULTAR_ESTADO_CUENTA");
@@ -46,8 +48,11 @@ public class CuentaPredialService implements ICuentaPredialService {
             query.execute();
 
         } catch (PersistenceException ex) {
+            log.error("Error en la consulta: {}", ex.getMessage(), ex);
             throw new ElementNotFoundException(ex.getMessage());
         }
+
+        log.info("Consulta realizada exitosamete para el catastro: {} por parte del usuario: {}", resp.codCatastral(), resp.numDocumento());
 
         // ASIGNACIÓN DIRECTA AL RECORD
         return new ConsultaResponse(
