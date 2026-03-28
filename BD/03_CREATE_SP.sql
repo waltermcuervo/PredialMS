@@ -1,0 +1,41 @@
+CREATE OR REPLACE PROCEDURE TOL.SP_CONSULTAR_ESTADO_CUENTA(
+    P_COD_CATASTRAL	 	  IN  VARCHAR2,
+    P_NUM_DOCUMENTO 	  IN  VARCHAR2,
+    P_TIPO_DOC		 	  IN VARCHAR2,
+    P_NOMBRE              OUT VARCHAR2,
+    P_VALOR_DEUDA         OUT NUMBER,
+    P_ESTADO              OUT VARCHAR2
+)
+AS
+    v_existe_catastro NUMBER := 0;
+	v_id_contribuyente NUMBER;
+BEGIN
+	
+	BEGIN 
+		SELECT c.ID
+		INTO v_id_contribuyente
+		FROM TOL.CONTRIBUYENTE c
+		WHERE c.NUM_DOCUMENTO = P_NUM_DOCUMENTO
+		AND c.TIPO_DOCUMENTO = P_TIPO_DOC;
+	
+	EXCEPTION
+		WHEN NO_DATA_FOUND THEN
+			RAISE_APPLICATION_ERROR(-20001, 'El contribuyente ' || P_NUM_DOCUMENTO || ' con tipo de documento ' || P_TIPO_DOC || ' no existe en el sistema.');
+	END;
+	
+	SELECT count(1) INTO v_existe_catastro
+	FROM TOL.CUENTA cu
+	WHERE cu.COD_CATASTRAL = P_COD_CATASTRAL
+	AND cu.CONTRIBUYENTE_ID = v_id_contribuyente;
+	
+	IF v_existe_catastro = 0 THEN
+		RAISE_APPLICATION_ERROR(-20001, 'El Catastro ' || P_COD_CATASTRAL || ' no existe en el sistema.');
+	END IF;
+	
+	SELECT nvl(c.NOMBRE, '') || ' ' || nvl(c.APELLIDO, ''), cu.DEUDA_VALOR, cu.ESTADO
+	INTO P_NOMBRE, P_VALOR_DEUDA, P_ESTADO 
+	FROM TOL.CONTRIBUYENTE c
+	JOIN tol.CUENTA cu ON (c.ID = cu.CONTRIBUYENTE_ID)
+	WHERE cu.COD_CATASTRAL = P_COD_CATASTRAL;
+	
+END;
