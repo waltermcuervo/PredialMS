@@ -1,0 +1,42 @@
+{
+  "info": {
+    "_postman_id": "80237634-793c-4148-af1f-aff9f39bdb2b",
+    "name": "Tol Api",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "14853276"
+  },
+  "item": [
+    {
+      "name": "Consulta de catastro",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"codCatastral\":\"01-01-0001-0010-000\",\r\n    \"tipoDocumento\":\"cc\",\r\n    \"numDocumento\":\"1049654321\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/catastro/consultar-cuenta",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "catastro",
+            "consultar-cuenta"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
