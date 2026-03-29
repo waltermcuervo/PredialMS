@@ -3,7 +3,7 @@
 
     <appender name="Console" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
-            <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n</pattern>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level [%X{transactionId}] %logger{36} - %msg%n</pattern>
         </encoder>
     </appender>
 
@@ -21,8 +21,8 @@
 
     <logger name="org.springframework" level="INFO" />
     <logger name="com.tu.proyecto" level="DEBUG" /> <root level="INFO">
-    <appender-ref ref="Console" />
-    <appender-ref ref="RollingFile" />
-</root>
+        <appender-ref ref="Console" />
+        <appender-ref ref="RollingFile" />
+    </root>
 
 </configuration>

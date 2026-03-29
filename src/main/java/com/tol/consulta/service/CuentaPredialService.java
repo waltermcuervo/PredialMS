@@ -23,14 +23,16 @@ public class CuentaPredialService implements ICuentaPredialService {
 
     private final ICuentaRepository cuentaRepository;
 
-    @PersistenceContext
-    private EntityManager entityManager;
+
+    private final EntityManager entityManager;
 
     @Override
     public ConsultaResponse consultarEstadoPredial(ConsultaRequest resp) {
-        log.info("inicio consulta predial: {} ", resp.codCatastral());
+        log.info("inicio consulta predial: {} por parte del usuario {} con tipo de documento {}", resp.codCatastral(), resp.numDocumento(), resp.tipoDocumento());
+
         StoredProcedureQuery query = null;
         try {
+            //return cuentaRepository.obtenerEstadoCuenta(resp.codCatastral(), resp.numDocumento(), resp.tipoDocumento());
             query = entityManager.createStoredProcedureQuery("TOL.SP_CONSULTAR_ESTADO_CUENTA");
 
             // Parámetros IN

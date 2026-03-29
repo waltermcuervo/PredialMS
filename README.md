@@ -5,7 +5,7 @@ Microservicio que permite generar la consulta del estado de un predio o cuenta c
 ## 🛠️ Tecnologías utilizadas
 
 - **Java 25**
-- **Spring Boot 4.0.5** (Web, Data JPA, Validation)
+- **Spring Boot 4.0.0** (Web, Data JPA, Validation)
 - **Oracle Database 23** (ojdbc11)
 - **Lombok** para reducir el código repetitivo (boilerplate)
 - **Springdoc OpenAPI** para la documentación de la API (Swagger UI)
